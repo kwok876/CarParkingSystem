@@ -1,11 +1,11 @@
 #include "CarPark.h"
 
-CarPark::CarPark() {
+/*CarPark::CarPark() {
 	_id = 0;
 	_name = "";
 	_location = "";		
-	_balance = 0;
-}
+	_balance = 0;	
+}*/
 
 CarPark::CarPark(int id, string name, string location, int* slot, double* fee) {
 	_id = id;
@@ -41,7 +41,6 @@ double CarPark::getBalance() { return _balance; }
 void CarPark::setBalance(double balance) { _balance = balance; }
 double CarPark::getFee(int i) { return _fee[i]; }
 void CarPark::setFee(int i, double fee) { _fee[i] = fee; }
-vector<CarParkSlot> CarPark::getSlot() { return cpSlot; }
-void CarPark::setSlot(int i,int day, int timeSlot, int status) { cpSlot[i].setStatus(day,timeSlot,status); }
+vector<CarParkSlot>& CarPark::getSlot() { return cpSlot; }
 int CarPark::getTotalSlot() { return totalSlot; }
 int CarPark::getNoOfSlot(int i) { return noOfSlot[i]; }

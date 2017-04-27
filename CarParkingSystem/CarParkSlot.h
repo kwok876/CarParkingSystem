@@ -1,13 +1,13 @@
 #ifndef CARKPARKSLOT_H
 #define CARKPARKSLOT_H
-
-
+#include <vector>
+using namespace std;
 class CarParkSlot {
 private:
 	int _slotId, _parkId, _vType;
-	int _status[31][24];
+	vector<int> _status;
 public:
-	CarParkSlot();
+	//CarParkSlot();
 	CarParkSlot(int slotId,int parkId,int vType);
 	int getSlotId();
 	void setSlotId(int slotId);
@@ -15,7 +15,6 @@ public:
 	void setParkId(int parkId);
 	int getVType();
 	void SetVType(int vType);
-	int getstatus(int day, int timeSlot);
-	void setStatus(int day,int timeSlot,int status); 
+	vector<int>& getstatus();
 };
 #endif

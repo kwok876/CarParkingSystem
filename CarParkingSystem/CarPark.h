@@ -14,8 +14,8 @@ private:
 	double _balance;
 	double _fee[3];	
 	vector<CarParkSlot> cpSlot;
-public:
-	CarPark();
+	public:
+	//CarPark();
 	CarPark(int id,string name,string location, int* slot, double* fee);
 	
 	int getId();
@@ -28,8 +28,7 @@ public:
 	void setBalance(double balance);
 	double getFee(int i);
 	void setFee(int i,double fee);
-	vector<CarParkSlot> getSlot();
-	void setSlot(int i, int day, int timeSlot, int status);
+	vector<CarParkSlot>& getSlot();
 	int getTotalSlot();
 	int getNoOfSlot(int i);
 };

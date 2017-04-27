@@ -687,7 +687,7 @@ void checkSlotStatus() {
 		for (int j = 0; j < cp->getSlot().size(); j++) {
 			isfree = true;
 			for (int i = 0; i < 24; i++) {
-				switch (cp->getSlot()[j].getstatus(day-1, i)) {
+				switch (cp->getSlot()[j].getstatus()[i]) {
 				case 0:break;
 				case 1:
 					cout << "Slot " << j << ": " << "Time Slot " << i + 1 << ": " << "Occupied" << endl;
@@ -710,7 +710,7 @@ void checkSlotStatus() {
 		cout << "Which slot would you like to check?(0-" << cp->getSlot().size()-1 << ')' << endl;
 		cin >> choice;
 		for (int i = 0; i < 24; i++) {
-			switch (cp->getSlot()[choice].getstatus(day-1, i)) {
+			switch (cp->getSlot()[choice].getstatus()[i]) {
 			case 0:break;
 			case 1:
 				cout << "Slot " << choice << ": " << "Time Slot " << i+1 << ": " << "Occupied" << endl;
@@ -769,14 +769,14 @@ void changeSlotStatus() {
 	cout << "Which slot would you like to change?(0-" << cp->getSlot().size() - 1 << ')' << endl;
 	cin >> iid;
 	cout << "Which day you want to change?(1-31)" << endl;
-	cin >> iday;
+	cin >> day;
 	cout << "Which time slot you want to change?(1-24)" << endl;
 	cin >> ts;	
 	cout << "Which status you want to change to?(0:Free;1:Occupied;2:Out of Service)" << endl;
 	cin >> choice;
-	cp->setSlot(iid,iday,ts,choice);
+	cp->getSlot()[iid].getstatus()[ts - 1]=choice;
 	cout << "Successful!" << endl;
-	cout << cp->getSlot()[iid].getstatus(iday-1, ts-1);
+	cout << cp->getSlot()[iid].getstatus()[ts-1];
 	// << 
 	Sleep(1500);
 	CPManageMenu();
