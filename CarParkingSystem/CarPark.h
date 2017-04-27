@@ -8,7 +8,7 @@
 using namespace std;
 
 class CarPark {
-protected:
+private:
 	int _id, noOfSlot[3],totalSlot;
 	string _name, _location;
 	double _balance;
@@ -29,7 +29,7 @@ public:
 	double getFee(int i);
 	void setFee(int i,double fee);
 	vector<CarParkSlot> getSlot();
-	void setSlot(int i);
+	void setSlot(int i, int day, int timeSlot, int status);
 	int getTotalSlot();
 	int getNoOfSlot(int i);
 };

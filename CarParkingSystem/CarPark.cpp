@@ -42,6 +42,6 @@ void CarPark::setBalance(double balance) { _balance = balance; }
 double CarPark::getFee(int i) { return _fee[i]; }
 void CarPark::setFee(int i, double fee) { _fee[i] = fee; }
 vector<CarParkSlot> CarPark::getSlot() { return cpSlot; }
-void CarPark::setSlot(int i) { i; }
+void CarPark::setSlot(int i,int day, int timeSlot, int status) { cpSlot[i].setStatus(day,timeSlot,status); }
 int CarPark::getTotalSlot() { return totalSlot; }
 int CarPark::getNoOfSlot(int i) { return noOfSlot[i]; }

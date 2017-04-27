@@ -1,8 +1,9 @@
 #ifndef CARKPARKSLOT_H
 #define CARKPARKSLOT_H
 
+
 class CarParkSlot {
-protected:
+private:
 	int _slotId, _parkId, _vType;
 	int _status[31][24];
 public:
