@@ -22,5 +22,5 @@ int CarParkSlot::getParkId() { return _parkId; };
 void CarParkSlot::setParkId(int parkId) { _parkId = parkId; }
 int CarParkSlot::getVType() { return _vType; }
 void CarParkSlot::SetVType(int vType) { _vType = vType; }
-int CarParkSlot::getstatus(int day, int timeSlot) { return _status[day + 1][timeSlot + 1]; }
-void CarParkSlot::setStatus(int day, int timeSlot, int status) { _status[day + 1][timeSlot + 1] = status; }
+int CarParkSlot::getstatus(int day, int timeSlot) { return _status[day - 1][timeSlot - 1]; }
+void CarParkSlot::setStatus(int day, int timeSlot, int status) { _status[day - 1][timeSlot - 1] = status; }

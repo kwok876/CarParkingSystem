@@ -15,15 +15,15 @@ CarPark::CarPark(int id, string name, string location, int* slot, double* fee) {
 	for (int i = 0; i < 3; i++) {
 		noOfSlot[i] = slot[i];
 	}
-	totalSlot = slot[0] + slot[1] + slot[3];
+	totalSlot = slot[0] + slot[1] + slot[2];
 
 	for (int i = 0; i < slot[0]; i++) {
 		cpSlot.push_back(CarParkSlot(i + 1, id, 0));
 	}
-	for (int i = slot[0]; i < slot[1]; i++) {
+	for (int i = slot[0]; i < (slot[0]+slot[1]); i++) {
 		cpSlot.push_back(CarParkSlot(i + 1, id, 1));
 	}
-	for (int i = slot[1]; i < slot[2]; i++) {
+	for (int i = (slot[0]+slot[1]); i <  (slot[0] + slot[1] + slot[2]); i++) {
 		cpSlot.push_back(CarParkSlot(i + 1, id, 2));
 	}
 	for (int i = 0; i < 3; i++) {
@@ -41,7 +41,7 @@ double CarPark::getBalance() { return _balance; }
 void CarPark::setBalance(double balance) { _balance = balance; }
 double CarPark::getFee(int i) { return _fee[i]; }
 void CarPark::setFee(int i, double fee) { _fee[i] = fee; }
-CarParkSlot CarPark::getSlot(int i) { return cpSlot[i]; }
+vector<CarParkSlot> CarPark::getSlot() { return cpSlot; }
 void CarPark::setSlot(int i) { i; }
 int CarPark::getTotalSlot() { return totalSlot; }
 int CarPark::getNoOfSlot(int i) { return noOfSlot[i]; }

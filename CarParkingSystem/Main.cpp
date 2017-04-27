@@ -2,6 +2,7 @@
 #include<fstream>
 #include<deque>
 #include<windows.h>
+#include<ctime>
 #include "User.h"
 #include "Driver.h"
 #include "Staff.h"
@@ -19,6 +20,8 @@ void createCPPage();
 void editCPPage();
 void deleteCPPage();
 void checkCPBalance();
+void checkSlotStatus();
+
 deque<Staff> staff;
 deque<Driver> driver;
 deque<CarPark> carPark;
@@ -78,7 +81,7 @@ int main() {
 			cout << "Wrong User Name!\n" << endl;			
 		}
 		string loginN;
-		r = -1;
+		r = -1;		
 		cout << "=================" << endl;
 		cout << "+---------------+" << endl;
 		cout << "|Car Park System|" << endl;
@@ -440,8 +443,12 @@ void CPManageMenu() {
 	case 2:
 		editCPPage();
 		break;
+	case 3:
+		checkSlotStatus();
+		break;
 	case 5:
 		checkCPBalance();
+		break;
 	case 6:
 		deleteCPPage();
 		break;
@@ -566,7 +573,8 @@ void deleteCPPage() {
 	CarPark *cp = NULL;
 	int index = -1;
 	int choice = -1;
-	char confirm = ' ';
+	char confirm = ' ';	
+
 	system("cls");
 	cout << "=========================" << endl;
 	cout << "Car Park Management Menu" << endl;
@@ -586,7 +594,7 @@ void deleteCPPage() {
 			break;
 		}
 	}
-	if (cp = NULL) CPManageMenu();
+	if (cp == NULL) CPManageMenu();
 	cout << "Are you sure to delete this Car Park?(y/n) ";
 	cin >> confirm;
 	if (confirm == 'y') { 
@@ -596,10 +604,6 @@ void deleteCPPage() {
 
 	Sleep(1500);
 	CPManageMenu();
-}
-
-void checkSlotStatus() {
-
 }
 
 void checkCPBalance() {
@@ -626,6 +630,98 @@ void checkCPBalance() {
 	}
 	if (cp == NULL) CPManageMenu();
 	cout << "Car Park Balance: $" << cp->getBalance() << endl;
+	system("pause");
+	CPManageMenu();
+}
+
+
+void checkSlotStatus() {
+	CarPark *cp = NULL;
+	int choice = -1;
+	bool isfree = true;
+	time_t t = time(0);
+	struct tm now;
+	localtime_s(&now, &t);
+	int day = now.tm_mday;
+	int month = now.tm_mon + 1;
+	int year = now.tm_year + 1900;
+
+	system("cls");
+	cout << "=========================" << endl;
+	cout << "Car Park Management Menu" << endl;
+	cout << "Check Car Park Slot Status" << endl;
+	cout << "Please input the number from the following:" << endl;
+	cout << "=========================" << endl;
+	for (unsigned int i = 0; i < carPark.size(); i++) {
+		cout << i + 1 << ". " << carPark[i].getName() << endl;
+	}
+
+	cout << "-------------------------" << endl;
+	cin >> choice;
+	for (unsigned int i = 0; i < carPark.size(); i++) {
+		if (choice == carPark[i].getId()) {
+			cp = &carPark[i];
+			break;
+		}
+	}
+	if (cp == NULL) CPManageMenu();
+	system("cls");
+	cout << "=========================" << endl;
+	cout << "Car Park Management Menu" << endl;
+	cout << "Check Car Park Slot Status" << endl;
+	cout << "Please input the number from the following:" << endl;
+	cout << "=========================" << endl;
+	cout << "1.Show All status" << endl;
+	cout << "2.Show Specifc Slot" << endl;
+	cout << "-------------------------" << endl;
+	cin >> choice;
+	cout << "Today is " << year << '-' << month << '-' << day << '.' << endl;
+	switch (choice) {
+	case 1:
+		isfree = true;
+		cout << "Here's are all status of " << cp->getName() << " for today." << endl;
+		for (int j = 0; j < cp->getSlot().size(); j++) {
+			isfree = true;
+			for (int i = 0; i < 24; i++) {
+				switch (cp->getSlot()[j].getstatus(day, i)) {
+				case 0:break;
+				case 1:
+					cout << "Slot " << j << ": " << "Time Slot " << i + 1 << ": " << "Occupied" << endl;
+					isfree = false;
+					break;
+				case 2:
+					cout << "Slot " << j << ": " << "Time Slot " << i + 1 << ": " << "Out Of Service" << endl;
+					isfree = false;
+					break;
+
+				}
+			}
+			if (isfree == true) {
+				cout << "All Time Slot in Slot " << j <<" are free." << endl;
+			}
+		}		
+		break;
+	case 2:
+		isfree = true;
+		cout << "Which slot would you like to check?(0-" << cp->getSlot().size()-1 << ')' << endl;
+		cin >> choice;
+		for (int i = 0; i < 24; i++) {
+			switch (cp->getSlot()[day-1].getstatus(day, choice)) {
+			case 0:break;
+			case 1:
+				cout << "Slot " << choice << ": " << "Time Slot " << i+1 << ": " << "Occupied" << endl;
+				isfree = false;
+				break;
+			case 2:
+				cout << "Slot " << choice << ": " << "Time Slot " << i + 1 << ": " << "Out Of Service" << endl;
+				isfree = false;
+			}
+		}
+		if (isfree == true) {
+			cout << "All time slot in this Slot are free." << endl;;
+		}
+		break;
+	}
 	system("pause");
 	CPManageMenu();
 }

@@ -28,7 +28,7 @@ public:
 	void setBalance(double balance);
 	double getFee(int i);
 	void setFee(int i,double fee);
-	CarParkSlot getSlot(int i);
+	vector<CarParkSlot> getSlot();
 	void setSlot(int i);
 	int getTotalSlot();
 	int getNoOfSlot(int i);
