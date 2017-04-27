@@ -8,7 +8,7 @@
 #include "CarPark.h"
 #include "CarParkSlot.h"
 
-int mainMenu();
+void mainMenu();
 void driveBalanceMenu();
 void acManageMenu();
 void editAcPage();
@@ -17,14 +17,17 @@ void deleteAcPage();
 
 deque<Staff> staff;
 deque<Driver> driver;
+deque<CarPark> carPark;
+
 User *user = NULL;
 int currentId;
+int currentCPId;
 
 int main() {	
 	int r = 0;
 	int id = 0, vType = 0, size = 0;
-	currentId = 1;	
-	int choice = 0;
+	currentId = 1;
+	currentCPId = 1;	
 	string userName="", name="", plateNo="";
 	double balance=0;
 	bool check = false;		
@@ -79,27 +82,13 @@ int main() {
 
 	} while (r == -1);
 
-	choice=mainMenu();
-	if (r == 0) {
-		switch (choice) {
-		case 2:
-			acManageMenu();
-		}
-	}
-	if (r == 1) {
-		switch (choice) {
-		case 1:
-			break;
-		case 2:
-			driveBalanceMenu();
-			break;
-		}
-	}
+	mainMenu();
+	
 	system("pause");
 
 }
 
-int mainMenu() {
+void mainMenu() {
 	int choice=-1,role=-1;
 	role = user->getRole();
 	system("cls");
@@ -113,8 +102,7 @@ int mainMenu() {
 		cout << "3.Logout" << endl;
 		cout << "4.Exit" << endl;
 		cout << "-------------------------" << endl;
-		cin >> choice;
-		return choice;
+		cin >> choice;		
 	}
 	if (role == 1) {
 		cout << "=========================" << endl;
@@ -126,10 +114,23 @@ int mainMenu() {
 		cout << "3.Logout" << endl;
 		cout << "4.Exit" << endl;
 		cout << "-------------------------" << endl;
-		cin >> choice;
-		return choice;
+		cin >> choice;		
 	}
-	return choice;
+	if (role == 0) {
+		switch (choice) {
+		case 2:
+			acManageMenu();
+		}
+	}
+	if (role == 1) {
+		switch (choice) {
+		case 1:
+			break;
+		case 2:
+			driveBalanceMenu();
+			break;
+		}
+	}
 }
 
 void driveBalanceMenu() {
@@ -214,11 +215,17 @@ void editAcPage() {
 	cout << "-------------------------" << endl;
 	cin >> inputS;
 	for (unsigned int i = 0; i < staff.size(); i++) {
-		if (inputS == staff[i].getUserName()) ac = &staff[i]; else acManageMenu();
+		if (inputS == staff[i].getUserName()) {
+			ac = &staff[i];
+			break;
+		}
 	}
 	for (unsigned int i = 0; i < driver.size(); i++) {
-		if (inputS == driver[i].getUserName())  ac = &driver[i]; else acManageMenu();
+		if (inputS == driver[i].getUserName()) {
+			ac = &driver[i];
+		}
 	}
+	if(ac==NULL) acManageMenu();
 	system("cls");
 	if(user->getRole() == 1){
 		cout << "=========================" << endl;
@@ -384,4 +391,8 @@ void deleteAcPage() {
 	}
 	Sleep(1500);
 	acManageMenu();
+}
+
+void CPMangeMenu() {
+	cout << carPark[0].getName();
 }

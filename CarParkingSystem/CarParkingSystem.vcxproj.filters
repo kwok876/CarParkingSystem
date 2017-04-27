@@ -41,10 +41,10 @@
     <ClInclude Include="Staff.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CarkPark.h">
+    <ClInclude Include="CarParkSlot.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CarParkSlot.h">
+    <ClInclude Include="CarPark.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

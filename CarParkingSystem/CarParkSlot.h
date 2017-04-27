@@ -1,6 +1,6 @@
 #ifndef CARKPARKSLOT_H
 #define CARKPARKSLOT_H
-#include "CarkPark.h"
+
 class CarParkSlot {
 protected:
 	int _slotId, _parkId, _vType;
