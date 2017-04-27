@@ -24,6 +24,8 @@ public:
 	virtual double getBalance() { return NULL; };
 	virtual void setVType(int vType) {};
 	virtual int getVType() { return NULL; };
+	virtual void setRSlot(int slot) {};
+	virtual int getRSlot() { return NULL; };
 };
  
 #endif

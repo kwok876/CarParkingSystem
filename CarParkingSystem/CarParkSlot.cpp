@@ -1,20 +1,18 @@
 #include "CarParkSlot.h"
 
-/*CarParkSlot::CarParkSlot() {
+CarParkSlot::CarParkSlot() {
 	_slotId = 0;
 	_parkId = 0;
 	_vType = 0;
-	for (int i = 0; i < 31; i++){
-		for (int j = 0; j < 24; j++) {
-			_status[i][j] = 0;
-		}
-	}		
-}*/
+	for (int i = 0; i < 24; i++) {
+		_status.push_back(0);
+	}
+}
 CarParkSlot::CarParkSlot(int slotId, int parkId, int vType) {
 	_slotId = slotId;
 	_parkId = parkId;
 	_vType = vType;	
-	for (int i = 0; i < 36; i++) {
+	for (int i = 0; i < 24; i++) {
 		_status.push_back(0);
 	}
 }

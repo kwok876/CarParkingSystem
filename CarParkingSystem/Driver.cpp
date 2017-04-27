@@ -63,3 +63,10 @@ Driver::Driver(int id,int role, string userName, string name, int vType, string 
 	_plateNo = plateNo;
 	_balance = balance;
 }
+
+void Driver::setRSlot(int slot) {
+	rslot = slot;
+}
+int Driver::getRSlot() {
+	return rslot;
+}

@@ -7,7 +7,7 @@ private:
 	int _slotId, _parkId, _vType;
 	vector<int> _status;
 public:
-	//CarParkSlot();
+	CarParkSlot();
 	CarParkSlot(int slotId,int parkId,int vType);
 	int getSlotId();
 	void setSlotId(int slotId);

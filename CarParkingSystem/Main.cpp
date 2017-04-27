@@ -732,14 +732,14 @@ void checkSlotStatus() {
 
 void changeSlotStatus() {
 	CarPark *cp = NULL;
-	int choice = -1;	
+	int choice = -1;
 	time_t t = time(0);
 	struct tm now;
 	localtime_s(&now, &t);
 	int day = now.tm_mday;
 	int month = now.tm_mon + 1;
 	int year = now.tm_year + 1900;
-	int iday=0, iid=0,ts=0;
+	int iday = 0, iid = 0, ts = 0;
 
 	system("cls");
 	cout << "=========================" << endl;
@@ -771,14 +771,69 @@ void changeSlotStatus() {
 	cout << "Which day you want to change?(1-31)" << endl;
 	cin >> day;
 	cout << "Which time slot you want to change?(1-24)" << endl;
-	cin >> ts;	
+	cin >> ts;
 	cout << "Which status you want to change to?(0:Free;1:Occupied;2:Out of Service)" << endl;
 	cin >> choice;
-	cp->getSlot()[iid].getstatus()[ts - 1]=choice;
+	cp->getSlot()[iid].getstatus()[ts - 1] = choice;
 	cout << "Successful!" << endl;
-	cout << cp->getSlot()[iid].getstatus()[ts-1];
+	cout << cp->getSlot()[iid].getstatus()[ts - 1];
 	// << 
 	Sleep(1500);
 	CPManageMenu();
 }
 
+void reServeps() {
+	CarPark *cp = NULL;
+	int choice = -1,index=-1;
+	char confirm = ' ';
+	time_t t = time(0);
+	struct tm now;
+	localtime_s(&now, &t);
+	int day = now.tm_mday;
+	int month = now.tm_mon + 1;
+	int year = now.tm_year + 1900;
+	int iday = 0, iid = 0, ts = 0;
+	cout << "=========================" << endl;
+	cout << "Car Park Menu" << endl;
+	cout << "Reserve Car Park Slot" << endl;
+	cout << "Please input the number from the following:" << endl;
+	cout << "=========================" << endl;
+	for (unsigned int i = 0; i < carPark.size(); i++) {
+		cout << i + 1 << ". " << carPark[i].getName() << endl;
+	}
+
+	cout << "-------------------------" << endl;
+	cin >> choice;
+	for (unsigned int i = 0; i < carPark.size(); i++) {
+		if (choice == carPark[i].getId()) {
+			cp = &carPark[i];
+			break;
+		}
+	}
+	if (cp == NULL) CPManageMenu();
+	system("cls");
+	cout << "=========================" << endl;
+	cout << "Car Park Menu" << endl;
+	cout << "Reserve Car Park Slot" << endl;
+	cout << "Please input the number from the following:" << endl;
+	cout << "=========================" << endl;
+	cout << "Which time slot do you want to reserverd?(1-24)" << endl;
+	cin >> ts;
+	cout << "Are you sure you want to reserve this car park?(y/n)" << endl;
+	cin >> confirm;
+	if (confirm = 'y') {
+		double bal = user->getBalance() - cp->getFee(user->getVType());
+		user->setBalance(bal);
+		cp->setBalance(cp->getBalance() + bal);
+		for (int i = 0; i < cp->getTotalSlot(); i++){
+			if (cp->getSlot()[i].getVType() == user->getVType()) {
+				index = i;
+				break;
+			}
+		}
+		cp->getSlot()[index].getstatus()[ts - 1] = 1;
+		user->setRSlot(cp->getId() + index);
+
+		
+	}
+}

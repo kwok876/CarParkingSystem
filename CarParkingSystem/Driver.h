@@ -1,12 +1,14 @@
 #ifndef DRIVER_H
 #define DRIVER_H
 #include"User.h"
+#include"CarParkSlot.h"
 
 class Driver :public User {
 protected:
 	int _vType;
 	string _plateNo;
 	double _balance;
+	int rslot;
 public:
 	void setRole(int role);
 	int getRole();
@@ -23,5 +25,7 @@ public:
 	void setBalance(double balance);
 	double getBalance();
 	Driver(int id, int role,string userName, string name, int vType, string plateNo, double balance);
+	void setRSlot(int slot);
+	int getRSlot();
 };
 #endif
