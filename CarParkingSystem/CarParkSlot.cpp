@@ -16,6 +16,7 @@ CarParkSlot::CarParkSlot(int slotId, int parkId, int vType) {
 		_status.push_back(0);
 	}
 }
+//getter and setter
 int CarParkSlot::getSlotId() { return _slotId; }
 void CarParkSlot::setSlotId(int slotId) { _slotId = slotId; }
 int CarParkSlot::getParkId() { return _parkId; };

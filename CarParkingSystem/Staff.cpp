@@ -1,5 +1,5 @@
 #include "Staff.h"
-
+//getter and setter
 int Staff::getRole() {
 	return _role;
 }

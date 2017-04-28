@@ -1,12 +1,5 @@
 #include "CarPark.h"
 
-/*CarPark::CarPark() {
-	_id = 0;
-	_name = "";
-	_location = "";		
-	_balance = 0;	
-}*/
-
 CarPark::CarPark(int id, string name, string location, int* slot, double* fee) {
 	_id = id;
 	_name = name;
@@ -31,6 +24,7 @@ CarPark::CarPark(int id, string name, string location, int* slot, double* fee) {
 	}
 }
 
+//getter and setter
 int CarPark::getId() { return _id; }
 void CarPark::setId(int id) { _id = id; }
 string CarPark::getName() { return _name; }

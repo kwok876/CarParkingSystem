@@ -10,6 +10,7 @@ protected:
 	double _balance;
 	int rslot;
 public:
+	//getter and setter
 	void setRole(int role);
 	int getRole();
 	void setId(int id);

@@ -4,6 +4,7 @@
 
 class Staff :public User {
 public:
+	//getter and setter
 	void setRole(int role);
 	int getRole();
 	void setId(int id);

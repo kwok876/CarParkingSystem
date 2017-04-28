@@ -44,6 +44,9 @@ int main() {
 	double balance=0;
 	double cpFee[3];
 	bool check = false;		
+
+	//loading data from txt
+
 	ifstream openFileS("Staff.txt");
 	ifstream openFileD("Driver.txt");
 	ifstream openFileC("CarPark.txt");
@@ -77,11 +80,14 @@ int main() {
 		};
 	}
 	openFileC.close();		
+
+	//call login page
 	login();
 	system("pause");
 
 }
 
+//login page
 void login() {
 	int r = 0;
 	system("cls");
@@ -117,6 +123,7 @@ void login() {
 	mainMenu();
 }
 
+//main menu
 void mainMenu() {
 	int choice=-1,role=-1;
 	role = user->getRole();
@@ -177,6 +184,7 @@ void mainMenu() {
 	}
 }
 
+//Driver Balance Menu
 void driveBalanceMenu() {
 	int choice=-1;
 	int balanceInc = 0;
@@ -205,6 +213,7 @@ void driveBalanceMenu() {
 	}
 }
 
+//Account Management menu
 void acManageMenu() {
 	int choice = -1, inputI=0;
 	string inputS="";
@@ -238,6 +247,7 @@ void acManageMenu() {
 	}
 }
 
+//Editing account page
 void editAcPage() {
 	User* ac = NULL;
 	int choice = -1, inputI = 0;
@@ -359,6 +369,7 @@ void editAcPage() {
 	editAcPage();
 }
 
+//creating account page
 void createAcPage() {
 	int vType = 0, size = 0,role;	
 	int choice = -1;
@@ -397,6 +408,7 @@ void createAcPage() {
 	acManageMenu();
 }
 
+//deleteing account page
 void deleteAcPage() {
 	int choice = -1,index=-1;
 	string inputS;
@@ -437,6 +449,7 @@ void deleteAcPage() {
 	acManageMenu();
 }
 
+//Car park manaement page
 void CPManageMenu() {
 	int choice;
 	system("cls");
@@ -472,10 +485,13 @@ void CPManageMenu() {
 	case 6:
 		deleteCPPage();
 		break;
+	case 7:
+		mainMenu();
 	}
 
 }
 
+//create Cark park page
 void createCPPage() {
 	string name,location;
 	int slot[3];
@@ -515,6 +531,7 @@ void createCPPage() {
 	}
 }
 
+//edit car park page
 void editCPPage() {
 	CarPark *cp=NULL;
 	int choice = -1, inputI = 0;
@@ -589,6 +606,7 @@ void editCPPage() {
 	
 }
 
+//delete car park page
 void deleteCPPage() {
 	CarPark *cp = NULL;
 	int index = -1;
@@ -626,6 +644,7 @@ void deleteCPPage() {
 	CPManageMenu();
 }
 
+//Check car park balance page
 void checkCPBalance() {
 	CarPark *cp = NULL;	
 	int choice = -1;
@@ -654,7 +673,7 @@ void checkCPBalance() {
 	CPManageMenu();
 }
 
-
+//check slot status page
 void checkSlotStatus() {
 	CarPark *cp = NULL;
 	int choice = -1;
@@ -752,7 +771,7 @@ void checkSlotStatus() {
 	system("pause");
 	CPManageMenu();
 }
-
+//change slot status page
 void changeSlotStatus() {
 	CarPark *cp = NULL;
 	int choice = -1;
@@ -805,6 +824,7 @@ void changeSlotStatus() {
 	CPManageMenu();
 }
 
+//reserver car park slot page
 void reServeps() {
 	CarPark *cp = NULL;
 	int choice = -1, index = -1;

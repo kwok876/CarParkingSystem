@@ -15,9 +15,8 @@ private:
 	double _fee[3];	
 	vector<CarParkSlot> cpSlot;
 	public:
-	//CarPark();
 	CarPark(int id,string name,string location, int* slot, double* fee);
-	
+	//getter and setter
 	int getId();
 	void setId(int id);
 	string getName();

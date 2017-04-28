@@ -1,5 +1,5 @@
 #include "Driver.h"
-
+//getter and setter
 int Driver::getRole() {
 	return _role;
 }
