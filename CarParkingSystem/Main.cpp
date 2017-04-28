@@ -487,6 +487,7 @@ void CPManageMenu() {
 		break;
 	case 7:
 		mainMenu();
+		break;
 	}
 
 }
