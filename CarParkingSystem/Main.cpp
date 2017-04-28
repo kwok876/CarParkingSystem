@@ -22,6 +22,8 @@ void deleteCPPage();
 void checkCPBalance();
 void checkSlotStatus();
 void changeSlotStatus();
+void reServeps();
+void login();
 
 deque<Staff> staff;
 deque<Driver> driver;
@@ -74,15 +76,22 @@ int main() {
 			id >= currentCPId ? currentCPId = id : currentCPId;
 		};
 	}
-	openFileC.close();
-	
+	openFileC.close();		
+	login();
+	system("pause");
+
+}
+
+void login() {
+	int r = 0;
+	system("cls");
 	do {
 		if (r == -1) {
 			system("cls");
-			cout << "Wrong User Name!\n" << endl;			
+			cout << "Wrong User Name!\n" << endl;
 		}
 		string loginN;
-		r = -1;		
+		r = -1;
 		cout << "=================" << endl;
 		cout << "+---------------+" << endl;
 		cout << "|Car Park System|" << endl;
@@ -99,17 +108,13 @@ int main() {
 		}
 		for (unsigned int i = 0; i < driver.size(); i++) {
 			if (loginN == driver[i].getUserName()) {
-				user = &driver[i];	
+				user = &driver[i];
 				r = 1;
 			}
 		};
 
 	} while (r == -1);
-
 	mainMenu();
-	
-	system("pause");
-
 }
 
 void mainMenu() {
@@ -148,15 +153,26 @@ void mainMenu() {
 		case 2:
 			acManageMenu();
 			break;
+		case 3:
+			login();
+			break;
+		case 4:
+			exit(0);
 		}
 	}
 	if (role == 1) {
 		switch (choice) {
 		case 1:
+			reServeps();
 			break;
 		case 2:
 			driveBalanceMenu();
 			break;
+		case 3:
+			login();
+			break;
+		case 4:
+			exit(0);
 		}
 	}
 }
@@ -643,6 +659,7 @@ void checkSlotStatus() {
 	CarPark *cp = NULL;
 	int choice = -1;
 	bool isfree = true;
+	string vType = "";
 	time_t t = time(0);
 	struct tm now;
 	localtime_s(&now, &t);
@@ -686,22 +703,25 @@ void checkSlotStatus() {
 		cout << "Here's are all status of " << cp->getName() << " for today." << endl;
 		for (int j = 0; j < cp->getSlot().size(); j++) {
 			isfree = true;
-			for (int i = 0; i < 24; i++) {
+			if (cp->getSlot()[j].getVType() == 0) vType = "Motor Cycle";
+			else if (cp->getSlot()[j].getVType() == 1) vType = "Private Car";
+			else vType = "Light Goods Vehicle";
+			for (int i = 0; i < 24; i++) {				
 				switch (cp->getSlot()[j].getstatus()[i]) {
 				case 0:break;
 				case 1:
-					cout << "Slot " << j << ": " << "Time Slot " << i + 1 << ": " << "Occupied" << endl;
+					cout << "Slot " << j << '(' << vType << "): " << "Time Slot " << i + 1 << ": " << "Occupied" << endl;
 					isfree = false;
 					break;
 				case 2:
-					cout << "Slot " << j << ": " << "Time Slot " << i + 1 << ": " << "Out Of Service" << endl;
+					cout << "Slot " << j << '(' << vType << "): " << "Time Slot " << i + 1 << ": " << "Out Of Service" << endl;
 					isfree = false;
 					break;
 
 				}
 			}
 			if (isfree == true) {
-				cout << "All Time Slot in Slot " << j <<" are free." << endl;
+				cout << "All Time Slot in Slot " << j << '(' << vType <<") are free." << endl;
 			}
 		}		
 		break;
@@ -710,14 +730,17 @@ void checkSlotStatus() {
 		cout << "Which slot would you like to check?(0-" << cp->getSlot().size()-1 << ')' << endl;
 		cin >> choice;
 		for (int i = 0; i < 24; i++) {
+			if (cp->getSlot()[choice].getVType() == 0) vType = "Motor Cycle";
+			else if (cp->getSlot()[choice].getVType() == 1) vType = "Private Car";
+			else vType = "Light Goods Vehicle";
 			switch (cp->getSlot()[choice].getstatus()[i]) {
 			case 0:break;
 			case 1:
-				cout << "Slot " << choice << ": " << "Time Slot " << i+1 << ": " << "Occupied" << endl;
+				cout << "Slot " << choice << '(' << vType << "): " << "Time Slot " << i + 1 << ": " << "Occupied" << endl;
 				isfree = false;
 				break;
 			case 2:
-				cout << "Slot " << choice << ": " << "Time Slot " << i + 1 << ": " << "Out Of Service" << endl;
+				cout << "Slot " << choice << '(' << vType << "): " << "Time Slot " << i + 1 << ": " << "Out Of Service" << endl;
 				isfree = false;
 			}
 		}
@@ -784,7 +807,7 @@ void changeSlotStatus() {
 
 void reServeps() {
 	CarPark *cp = NULL;
-	int choice = -1,index=-1;
+	int choice = -1, index = -1;
 	char confirm = ' ';
 	time_t t = time(0);
 	struct tm now;
@@ -793,6 +816,7 @@ void reServeps() {
 	int month = now.tm_mon + 1;
 	int year = now.tm_year + 1900;
 	int iday = 0, iid = 0, ts = 0;
+	system("cls");
 	cout << "=========================" << endl;
 	cout << "Car Park Menu" << endl;
 	cout << "Reserve Car Park Slot" << endl;
@@ -822,18 +846,28 @@ void reServeps() {
 	cout << "Are you sure you want to reserve this car park?(y/n)" << endl;
 	cin >> confirm;
 	if (confirm = 'y') {
-		double bal = user->getBalance() - cp->getFee(user->getVType());
-		user->setBalance(bal);
-		cp->setBalance(cp->getBalance() + bal);
-		for (int i = 0; i < cp->getTotalSlot(); i++){
-			if (cp->getSlot()[i].getVType() == user->getVType()) {
-				index = i;
-				break;
+		if (user->getRSlot() > 0) {
+			cout << "You have already reserved a Slot!" << endl;
+			Sleep(1500);
+			mainMenu();
+		} else if (user->getBalance() < cp->getFee(user->getVType())) {
+			cout << "You do have enough money!" << endl;
+			Sleep(1500);
+			mainMenu();
+		} else {
+			user->setBalance(user->getBalance() - cp->getFee(user->getVType()));
+			cp->setBalance(cp->getFee(user->getVType()));
+			for (int i = 0; i < cp->getTotalSlot(); i++) {
+				if (cp->getSlot()[i].getVType() == user->getVType()) {
+					index = i;
+					break;
+				}
 			}
+			cp->getSlot()[index].getstatus()[ts - 1] = 1;
+			user->setRSlot(cp->getId() + index);
+			cout << "Successful!" << endl;
+			Sleep(1500);
+			mainMenu();
 		}
-		cp->getSlot()[index].getstatus()[ts - 1] = 1;
-		user->setRSlot(cp->getId() + index);
-
-		
 	}
 }
